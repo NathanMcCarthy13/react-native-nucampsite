@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from '../redux/ActionCreators';
 import * as Animatable from 'react-native-animatable';
-​
+
 const mapStateToProps = state => {
   return {
     campsites: state.campsites,
@@ -13,14 +13,14 @@ const mapStateToProps = state => {
     favorites: state.favorites
   };
 };
-​
+
 const mapDispatchToProps = {
     postFavorite: (campsiteId) => (postFavorite(campsiteId)),
     postComment: (campsiteId, rating, author, text) => postComment(campsiteId, rating, author, text)
 };
-​
+
 function RenderCampsite(props) {
-​
+    
     const {campsite} = props;
 
     const view = React.createRef();
@@ -62,7 +62,7 @@ function RenderCampsite(props) {
             return true;
         }
     });
-​
+    
     if (campsite) {
         return (
             <Animatable.View 
@@ -103,9 +103,9 @@ function RenderCampsite(props) {
     }
     return <View />;
 }
-​
+
 function RenderComments({comments}) {
-​
+    
     const renderCommentItem = ({item}) => {
         return (
             <View style={{margin: 10}}>
@@ -120,7 +120,7 @@ function RenderComments({comments}) {
             </View>
         );
     };
-​
+    
     return (
         <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
             <Card title='Comments'>
@@ -133,9 +133,9 @@ function RenderComments({comments}) {
         </Animatable.View>
     );
 }
-​
+
 class CampsiteInfo extends Component {
-​
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -145,16 +145,16 @@ class CampsiteInfo extends Component {
             showModal: false
         };
     }
-​
+    
     toggleModal() {
         this.setState({ showModal: !this.state.showModal });
     }
-​
+    
     handleComment(campsiteId) {
         this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text);
         this.toggleModal();
     }
-​
+    
     resetForm() {
         this.setState({
             rating: 5,
@@ -163,15 +163,15 @@ class CampsiteInfo extends Component {
             showModal: false
         });
     }
-​
+    
     markFavorite(campsiteId) {
         this.props.postFavorite(campsiteId);
     }
-​
+    
     static navigationOptions = {
         title: 'Campsite Information'
     }
-​
+    
     render() {
         const campsiteId = this.props.navigation.getParam('campsiteId');
         const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
@@ -239,7 +239,7 @@ class CampsiteInfo extends Component {
         );
     }
 }
-​
+
 const styles = StyleSheet.create({
     cardRow: {
       alignItems:'center',
@@ -253,5 +253,5 @@ const styles = StyleSheet.create({
       margin: 20
     }
 });
-​
+
 export default connect(mapStateToProps, mapDispatchToProps)(CampsiteInfo);
