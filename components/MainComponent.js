@@ -323,7 +323,7 @@ class Main extends Component {
 
     showNetInfo = async() => {
         let connectionInfo = await NetInfo.fetch();
-        if (connectionInfo.ok) {
+        if (connectionInfo) {
             (Platform.OS === 'ios')
                 ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
                 : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG);
